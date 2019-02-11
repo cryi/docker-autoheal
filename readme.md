@@ -19,7 +19,7 @@ docker run -d \
     -e RPC_TIMEOUT=30 \
     -e STOP_TIMEOUT=10 \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    willfarrell/autoheal
+    cryi/autoheal
 ```
 
 #### docker-compose
@@ -27,7 +27,7 @@ docker run -d \
 ```yml
   autoheal:
     restart: always
-    image: willfarrell/autoheal
+    image: cryi/autoheal
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:

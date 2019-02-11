@@ -21,6 +21,18 @@ RPC_TIMEOUT=${RPC_TIMEOUT:-30}
 STOP_TIMEOUT=${STOP_TIMEOUT:-10}
 COMPOSE_MODE=${COMPOSE_MODE:-false}
 
+printf "
+AUTOHEAL_DELAY: %s
+AUTOHEAL_INTERVAL=%s
+AUTOHEAL_LABEL_VALUE=%s
+
+DOCKER_SOCKET=%s
+RPC_TIMEOUT=%s
+STOP_TIMEOUT=%s
+COMPOSE_MODE=%s
+" "$AUTOHEAL_DELAY" "$AUTOHEAL_INTERVAL" "$AUTOHEAL_LABEL_VALUE" \
+"$DOCKER_SOCKET" "$RPC_TIMEOUT" "$STOP_TIMEOUT" "$COMPOSE_MODE"
+
 # SIGTERM-handler
 term_handler() {
   exit 143; # 128 + 15 -- SIGTERM
@@ -41,7 +53,7 @@ if [ "$1" = 'autoheal' ] && [ -e "$DOCKER_SOCKET" ]; then
         PROJECT_KEY=$(printf "%s" "$LABELS" | jq .key -r)
         PROJECT_NAME=$(printf "%s" "$LABELS" | jq .value -r)
         
-        printf "Monitoring in COMPOSE MODE with project name: %s" "$PROJECT_NAME"
+        printf "Monitoring in COMPOSE MODE with project name: %s\n" "$PROJECT_NAME"
 
         labelFilter=",\"label\":\[\"$PROJECT_KEY=$PROJECT_NAME\"\]"
         if [ -n "$AUTOHEAL_LABEL" ] && [ ! "$AUTOHEAL_LABEL" = "all" ]; then
