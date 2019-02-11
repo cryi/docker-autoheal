@@ -1,5 +1,4 @@
-ARG arch=x86_64
-FROM multiarch/alpine:${arch}-latest
+FROM alpine:latest
 
 RUN apk add --no-cache curl jq
 
