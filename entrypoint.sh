@@ -39,7 +39,7 @@ term_handler() {
 }
 
 docker_rpc() {
-  curl --max-time "${RPC_TIMEOUT}" --no-buffer -s --unix-socket "$DOCKER_SOCKET" "$@"
+  curl --max-time "$RPC_TIMEOUT" --no-buffer -s --unix-socket "$DOCKER_SOCKET" "$@"
 }
 
 trap 'kill ${!}; term_handler' TERM
