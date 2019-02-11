@@ -1,10 +1,10 @@
 ARG arch=x86_64
-FROM multiarch/alpine:${arch}-v3.8
+FROM multiarch/alpine:${arch}-latest
 
 RUN apk add --no-cache curl jq
 
-COPY docker-entrypoint /
-ENTRYPOINT ["/docker-entrypoint"]
+COPY entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
 
 HEALTHCHECK --interval=5s CMD exit 0
 
